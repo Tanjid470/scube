@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class ColorUtils{
   ColorUtils._();
   static Color baseColor = Color(0XFF0096FC);
+  static Color greyCustom = Color(0XFFA5A7B9);
   static Color greyColor =  Colors.grey;
   static Color grey300 = Colors.grey.shade300;
   static Color black =  Colors.black;
