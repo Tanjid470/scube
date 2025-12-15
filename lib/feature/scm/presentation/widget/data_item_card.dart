@@ -14,7 +14,7 @@ class DataItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.pushNamed(context, RouteNames.noDataView);
+        Navigator.pushNamed(context, RouteNames.scmDataDetailsView);
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 5),
