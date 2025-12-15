@@ -5,12 +5,16 @@ import 'package:scube/core/const/color_utils.dart';
 
 class SemiCircleProgress extends StatelessWidget {
   final double value;
+  final String? title;
+  final bool isValue;
   final double size;
   final String unit;
 
   const SemiCircleProgress({
     super.key,
     required this.value,
+    this.title,
+    this.isValue = true,
     this.size = 100,
     this.unit = '',
   });
@@ -31,7 +35,7 @@ class SemiCircleProgress extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                (value * 100).toStringAsFixed(2),
+                isValue == false ? title.toString() : (value * 100).toStringAsFixed(2),
                 style: TextStyle(
                   fontSize: size * 0.15,
                   fontWeight: FontWeight.w500,
