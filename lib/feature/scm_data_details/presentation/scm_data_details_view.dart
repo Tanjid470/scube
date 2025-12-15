@@ -3,6 +3,7 @@ import 'package:scube/config/font_constant.dart';
 import 'package:scube/core/const/color_utils.dart';
 import 'package:scube/feature/scm_data_details/presentation/widget/multi_layer_circle.dart';
 import 'package:scube/feature/scm_data_details/presentation/widget/semi_circle_progress_widget.dart';
+import 'package:scube/feature/scm_data_details/presentation/widget/today_data_card.dart';
 import 'package:scube/global/scm_appBar.dart';
 
 
@@ -14,6 +15,7 @@ class ScmDataDetailsView extends StatefulWidget {
 }
 
 class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with TickerProviderStateMixin {
+
   late TabController? _tabController;
   TabController? _subTabController;
 
@@ -30,7 +32,6 @@ class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with TickerProv
     });
   }
 
-
   @override
   void dispose() {
     _tabController?.dispose();
@@ -38,6 +39,38 @@ class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with TickerProv
     super.dispose();
   }
 
+
+
+  final List<Map<String, dynamic>> dataList = [
+    {
+      "name": "Data A",
+      "value": 2798.50,
+      "percentage": 29.53,
+      "cost": 35689,
+      "color": Colors.red,
+    },
+    {
+      "name": "Data B",
+      "value": 72598.50,
+      "percentage": 35.39,
+      "cost": 5259689,
+      "color": Colors.green,
+    },
+    {
+      "name": "Data C",
+      "value": 6598.36,
+      "percentage": 83.90,
+      "cost": 5698756,
+      "color": Colors.orange,
+    },
+    {
+      "name": "Data D",
+      "value": 6598.26,
+      "percentage": 36.59,
+      "cost": 356987,
+      "color": Colors.purple,
+    },
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,17 +188,17 @@ class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with TickerProv
       length: 2,
       child: Column(
         children: [
-          SizedBox(height: 50,),
+          SizedBox(height: 50),
           SemiCircleProgress(
             value: 0.55,
-            size: 120,
+            size: 140,
             unit: 'kWh/Sqft',
           ),
           TabBar(
             controller: _subTabController,
             labelColor: Colors.blue,
             unselectedLabelColor: Colors.grey.shade600,
-            indicatorSize: TabBarIndicatorSize.tab,
+            indicatorSize: TabBarIndicatorSize.label,
             indicatorColor: Colors.white,
             dividerColor: Colors.transparent,
             indicatorPadding: EdgeInsets.zero,
@@ -217,24 +250,73 @@ class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with TickerProv
               ]
             )
           ),
-
         ],
       ),
     );
   }
 
-  Widget _revenueViewTabView() {
-    return Center(child: Text('Revenue View', style: TextStyle(fontSize: 28)));
-  }
 
   Widget _todayDataTabView() {
-    return Center(child: Text('Today Data', style: TextStyle(fontSize: 28)));
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
+      child: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 5),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(
+                Radius.circular(10)
+              ),
+              border: Border.all(color: ColorUtils.greyColor,strokeAlign: 1)
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        'Energy Chart',
+                        style: TextStyle(fontWeight: FontWeight.bold,
+                            fontSize: TextSize.font18(context),
+                            color: Colors.black87),
+                      ), Text(
+                        '5.53 kw',
+                        style: TextStyle(fontWeight: FontWeight.bold,
+                            fontSize: TextSize.font28(context),
+                            color: Colors.black87),
+                      ),
+                    ],
+                  ),
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: dataList.length,
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (context, index) {
+                    return TodayDataCard(item: dataList[index]);
+                  },
+                ),
+
+          ]
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _customDateDataTabView() {
     return Center(child: Text('Custom Date Data View', style: TextStyle(fontSize: 28)));
   }
 
+  Widget _revenueViewTabView() {
+    return Center(child: Text('Revenue View', style: TextStyle(fontSize: 28)));
+  }
 
 
 }
