@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scube/config/font_constant.dart';
 import 'package:scube/core/const/color_utils.dart';
 import 'package:scube/feature/scm_data_details/presentation/widget/multi_layer_circle.dart';
+import 'package:scube/feature/scm_data_details/presentation/widget/semi_circle_progress_widget.dart';
 import 'package:scube/global/scm_appBar.dart';
 
 
@@ -46,7 +47,6 @@ class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with SingleTick
   Widget _body() {
     return Stack(
       children: [
-        // Main container with rounded top and top border
         Padding(
           padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.06), // leave space for TabBar
           child: Container(
@@ -145,7 +145,19 @@ class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with SingleTick
   }
 
   Widget _dataViewTab() {
-    return Center(child: Text('Data View', style: TextStyle(fontSize: 28)));
+    return Column(
+      children: [
+        SizedBox(height: 50,),
+        SemiCircleProgress(
+          value: 0.55,       // 55%
+          size: 120,         // total width
+          unit: 'kWh/Sqft',  // label below number
+        ),
+
+
+        Center(child: Text('Data View', style: TextStyle(fontSize: 28))),
+      ],
+    );
   }
 
   Widget _revenueViewTab() {
