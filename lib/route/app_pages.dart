@@ -16,7 +16,7 @@ class AppPages{
     GetPage(
       name:_Paths.homeView,
       page: () => const HomeView(),
-      transition: Transition.leftToRight,
+      transition: Transition.rightToLeftWithFade,
       curve: Curves.fastOutSlowIn,
     ),
     GetPage(
