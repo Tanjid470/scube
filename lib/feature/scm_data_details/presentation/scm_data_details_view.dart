@@ -13,15 +13,20 @@ class ScmDataDetailsView extends StatefulWidget {
   State<ScmDataDetailsView> createState() => _ScmDataDetailsViewState();
 }
 
-class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with SingleTickerProviderStateMixin {
+class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with TickerProviderStateMixin {
   late TabController? _tabController;
+  TabController? _subTabController;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    _subTabController = TabController(length: 2, vsync: this);
     _tabController?.addListener(() {
-      setState(() {}); // rebuild to update icon color
+      setState(() {});
+    });
+    _subTabController?.addListener(() {
+      setState(() {});
     });
   }
 
@@ -29,6 +34,7 @@ class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with SingleTick
   @override
   void dispose() {
     _tabController?.dispose();
+    _subTabController?.dispose();
     super.dispose();
   }
 
@@ -67,8 +73,8 @@ class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with SingleTick
             child: TabBarView(
               controller: _tabController,
                 children: [
-                  _dataViewTab(),
-                  _revenueViewTab(),
+                  _dataViewTabView(),
+                  _revenueViewTabView(),
                 ]
             )
           ),
@@ -144,25 +150,91 @@ class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with SingleTick
     );
   }
 
-  Widget _dataViewTab() {
-    return Column(
-      children: [
-        SizedBox(height: 50,),
-        SemiCircleProgress(
-          value: 0.55,       // 55%
-          size: 120,         // total width
-          unit: 'kWh/Sqft',  // label below number
-        ),
+  Widget _dataViewTabView() {
+    return DefaultTabController(
+      length: 2,
+      child: Column(
+        children: [
+          SizedBox(height: 50,),
+          SemiCircleProgress(
+            value: 0.55,
+            size: 120,
+            unit: 'kWh/Sqft',
+          ),
+          TabBar(
+            controller: _subTabController,
+            labelColor: Colors.blue,
+            unselectedLabelColor: Colors.grey.shade600,
+            indicatorSize: TabBarIndicatorSize.tab,
+            indicatorColor: Colors.white,
+            dividerColor: Colors.transparent,
+            indicatorPadding: EdgeInsets.zero,
+            indicator: BoxDecoration(
+              color: Colors.white, // selected tab background
+              borderRadius: BorderRadius.circular(16),
+            ),
+            tabs: [
+              Tab(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ColoredCircle(color: _subTabController?.index == 0 ? Colors.blue : Colors.grey,size: 12),
+                    const SizedBox(width: 6),
+                    Text('Today Data',
+                        style: TextStyle(
+                          color: _subTabController?.index == 0 ? Colors.blue : Colors.grey,
+                          fontSize: TextSize.font16(context),
+                          fontWeight: _subTabController?.index == 0 ? FontWeight.w700 : FontWeight.w400,
+                        )
+                    ),
+                  ],
+                ),
+              ),
+              Tab(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ColoredCircle(color:  _subTabController?.index == 1 ? Colors.blue : Colors.grey,size: 12),
+                    const SizedBox(width: 6),
+                    Text('Custom Date Data',
+                        style: TextStyle(
+                          color: _subTabController?.index == 1 ? Colors.blue : Colors.grey,
+                          fontSize: TextSize.font16(context),
+                          fontWeight: _subTabController?.index == 1 ? FontWeight.w700 : FontWeight.w400,
+                        )
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: TabBarView(
+              controller: _subTabController,
+              children: [
+                _todayDataTabView(),
+                _customDateDataTabView(),
+              ]
+            )
+          ),
 
-
-        Center(child: Text('Data View', style: TextStyle(fontSize: 28))),
-      ],
+        ],
+      ),
     );
   }
 
-  Widget _revenueViewTab() {
+  Widget _revenueViewTabView() {
     return Center(child: Text('Revenue View', style: TextStyle(fontSize: 28)));
   }
+
+  Widget _todayDataTabView() {
+    return Center(child: Text('Today Data', style: TextStyle(fontSize: 28)));
+  }
+
+  Widget _customDateDataTabView() {
+    return Center(child: Text('Custom Date Data View', style: TextStyle(fontSize: 28)));
+  }
+
 
 
 }
