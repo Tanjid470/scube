@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:scube/config/font_constant.dart';
 import 'package:scube/core/const/color_utils.dart';
 import 'package:scube/feature/scm_data_details/presentation/widget/multi_layer_circle.dart';
+import 'package:scube/feature/scm_data_details/presentation/widget/revenue_sub_card.dart';
 import 'package:scube/feature/scm_data_details/presentation/widget/semi_circle_progress_widget.dart';
 import 'package:scube/feature/scm_data_details/presentation/widget/today_data_card.dart';
+import 'package:scube/global/k_field.dart';
 import 'package:scube/global/scm_appBar.dart';
 
 
@@ -18,7 +20,7 @@ class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with TickerProv
 
   late TabController? _tabController;
   TabController? _subTabController;
-
+  bool isOpen = false;
   @override
   void initState() {
     super.initState();
@@ -38,7 +40,6 @@ class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with TickerProv
     _subTabController?.dispose();
     super.dispose();
   }
-
 
 
   final List<Map<String, dynamic>> dataList = [
@@ -188,7 +189,7 @@ class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with TickerProv
       length: 2,
       child: Column(
         children: [
-          SizedBox(height: 50),
+          SizedBox(height: 60),
           SemiCircleProgress(
             value: 0.55,
             size: 140,
@@ -295,6 +296,7 @@ class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with TickerProv
                 ),
                 ListView.builder(
                   shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
                   itemCount: dataList.length,
                   padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
@@ -311,11 +313,235 @@ class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with TickerProv
   }
 
   Widget _customDateDataTabView() {
-    return Center(child: Text('Custom Date Data View', style: TextStyle(fontSize: 28)));
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              spacing: 5,
+              children: [
+                Expanded(
+                  child: KField(
+                    hideHeadline: true,
+                    hintText: 'From Date',
+                    errorText: '',
+                    onTap: null,
+                    noPrefix: true,
+                    datePicker: true,
+                    readOnly: true,
+                    suffix: Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Icon(Icons.calendar_today_outlined,color: ColorUtils.black54),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: KField(
+                    hideHeadline: true,
+                    hintText: 'To Date',
+                    errorText: '',
+                    onTap: null,
+                    noPrefix: true,
+                    datePicker: true,
+                    readOnly: true,
+                    suffix: Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Icon(Icons.calendar_today_outlined,color: ColorUtils.black54),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 11),
+                  decoration: BoxDecoration(
+                    color: Colors.blue.withOpacity(0.1),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10)
+                    ),
+                    border:Border.all(color: ColorUtils.baseColor)
+                  ),
+                  child: Icon(Icons.search_outlined,color: ColorUtils.baseColor),
+                )
+              ],
+            ),
+            SizedBox(height: 10),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 5),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(10)
+                  ),
+                  border: Border.all(color: ColorUtils.greyColor,strokeAlign: 1)
+              ),
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            'Energy Chart',
+                            style: TextStyle(fontWeight: FontWeight.bold,
+                                fontSize: TextSize.font18(context),
+                                color: Colors.black87),
+                          ), Text(
+                            '20.05 kw',
+                            style: TextStyle(fontWeight: FontWeight.bold,
+                                fontSize: TextSize.font28(context),
+                                color: Colors.black87),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: dataList.length,
+                      padding: EdgeInsets.zero,
+                      itemBuilder: (context, index) {
+                        return TodayDataCard(item: dataList[index]);
+                      },
+                    ),
+        
+                  ]
+              ),
+            ),
+            SizedBox(height: 15),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 5),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(10)
+                  ),
+                  border: Border.all(color: ColorUtils.greyColor,strokeAlign: 1)
+              ),
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            'Energy Chart',
+                            style: TextStyle(fontWeight: FontWeight.bold,
+                                fontSize: TextSize.font18(context),
+                                color: Colors.black87),
+                          ), Text(
+                            '5.53 kw',
+                            style: TextStyle(fontWeight: FontWeight.bold,
+                                fontSize: TextSize.font28(context),
+                                color: Colors.black87),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: dataList.length,
+                      padding: EdgeInsets.zero,
+                      itemBuilder: (context, index) {
+                        return TodayDataCard(item: dataList[index]);
+                      },
+                    ),
+        
+                  ]
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _revenueViewTabView() {
-    return Center(child: Text('Revenue View', style: TextStyle(fontSize: 28)));
+    return Column(
+      children: [
+        SizedBox(height: 60),
+        SemiCircleProgress(
+          value: 0.88,
+          isValue: false,
+          title: '8897455',
+          size: 140,
+          unit: 'tk',
+        ),
+        SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+            decoration: BoxDecoration(
+              border: Border.all(color: ColorUtils.greyCustom),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Theme(
+              data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+              child: ExpansionTile(
+                collapsedBackgroundColor: Colors.white,
+                collapsedIconColor: Colors.blue,
+                onExpansionChanged: (v) {
+                  setState(() => isOpen = v);
+                },
+                trailing: CircleAvatar(
+                  radius: 12,
+                  backgroundColor: Colors.blue,
+                  child: Transform.rotate(
+                    angle: isOpen ? 0 : 3.1416, // 0 = down, 180° = up
+                    child: Transform.rotate(
+                      angle: 1.5708, // 90° to make icon vertical
+                      child: const Icon(
+                        Icons.double_arrow_sharp,
+                        size: 12,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+
+                title: Row(
+                  children: [
+                    Icon(Icons.bar_chart, size: 20),
+                    SizedBox(width: 8),
+                    Text('Data & Cost Info',style: TextStyle(fontWeight: FontWeight.w400,fontSize: TextSize.font16(context))),
+                  ],
+                ),
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      children: dataList
+                          .asMap()
+                          .entries
+                          .map((entry) {
+                        final index = entry.key;
+                        final item = entry.value;
+                        return RevenueSubCard(item: item, index: index+1);
+                      })
+                          .toList(),
+
+                    ),
+                  ),
+                ],
+
+              ),
+            ),
+          ),
+        )
+
+
+      ],
+    );
   }
 
 
