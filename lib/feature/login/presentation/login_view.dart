@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:scube/config/font_constant.dart';
 import 'package:scube/config/responsive_scale.dart';
 import 'package:scube/core/const/color_utils.dart';
 import 'package:scube/feature/login/controller/login_controller.dart';
 import 'package:get/get.dart';
+import 'package:scube/global/base_button.dart';
 import 'package:scube/global/k_field.dart';
 import 'package:scube/route/app_pages.dart';
 import 'package:scube/utils/validators.dart';
@@ -32,10 +34,8 @@ class _LoginViewState extends State<LoginView> {
         Scaffold(
             extendBody: true,
             resizeToAvoidBottomInset: false,
-            body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: body(),
-            )
+            backgroundColor: ColorUtils.baseColor,
+            body: body()
         ),
       ],
     );
@@ -45,84 +45,119 @@ class _LoginViewState extends State<LoginView> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(child: _form()),
+        Expanded(
+          flex: 6,
+          child: upperBody(),
+        ),
+        Expanded(
+          flex: 8,
+            child: lowerBody()),
         //tosAndPp(),
       ],
     );
   }
 
-  Widget appBar() {
-    return const Text(
-      'Login',
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        color: Color(0xFF353350),
-        fontSize: 30,
-        fontWeight: FontWeight.w500,
+  Widget upperBody() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Image.asset(
+          'assets/images/login_logo.png',
+          height: MediaQuery.of(context).size.height * 0.1,
+          width: MediaQuery.of(context).size.height * 0.2,
+          fit: BoxFit.contain,
+        ),
+        SizedBox(height: ResponsiveScale.of(context).hp(1)),
+        Text('SCUBE',style: TextStyle(color: ColorUtils.white,fontSize: TextSize.font24(context),fontWeight: FontWeight.w600)),
+        Text('Control & Monitoring System',style: TextStyle(color: ColorUtils.white,fontSize: TextSize.font22(context),fontWeight: FontWeight.w600))
+      ]
+    );
+  }
+
+  Widget lowerBody() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        )
+      ),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(height: ResponsiveScale.of(context).hp(5)),
+            Text('Login',style: TextStyle(
+              fontSize: TextSize.font24(context),
+              fontWeight: FontWeight.w700
+              )),
+            SizedBox(height: ResponsiveScale.of(context).hp(3)),
+            _from(),
+            SizedBox(height: ResponsiveScale.of(context).hp(2)),
+            BaseButton(onClick: (){
+              Navigator.pushNamed(context, RouteNames.homeView);
+            }, title: 'Login'),
+            SizedBox(height: ResponsiveScale.of(context).hp(1)),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 5,
+              children: [
+                Text('Don\'t have an account?',style: TextStyle(fontSize: TextSize.font14(context))),
+                Text('Register Now',style: TextStyle(color: ColorUtils.baseColor,fontSize: TextSize.font16(context),fontWeight: FontWeight.w600))
+              ],
+            )
+
+          ],
+        ),
       ),
     );
   }
 
-  Widget _form() {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-
-          Obx((){
-            return KField(
-              headLine: 'Email Address',
-              hintText: 'Your email address',
-              controller: loginController.emailController,
-              errorText: loginController.emailError.value,
-              onChanged: (_) => loginController.emailError.value = Validators.validateEmail(loginController.emailController.text) ?? '',
-              onTap: null,
-              icon: Icons.email_outlined,
-              keyboardType: TextInputType.emailAddress,
-            );
-          }),
-          SizedBox(height: ResponsiveScale.of(context).hp(1)),
-          Obx((){
-            return KField(
-              headLine: 'Password',
-              hintText: 'Enter your password',
-              controller: loginController.passwordController,
-              errorText: loginController.passwordError.value,
-              onChanged: (_) => loginController.passwordError.value = Validators.validatePassword(loginController.passwordController.text) ?? '',
-              onTap: null,
-              icon: Icons.lock_outline,
-              keyboardType: TextInputType.emailAddress,
-              showPassIcon: true,
-            );
-          }),
-          SizedBox(height: ResponsiveScale.of(context).hp(2)),
-          // BaseButton(onClick: (){
-          //   if (loginController.emailController.text.isEmpty) {
-          //     loginController.emailError.value = 'Please enter email';
-          //     return;
-          //   }
-          //   if (loginController.passwordController.text.isEmpty) {
-          //     loginController.passwordError.value = 'Please enter password';
-          //     return;
-          //   }
-          //   loginController.login(context);
-          // }, title: 'Login'),
-          // SizedBox(height: ResponsiveScale.of(context).hp(2)),
-          // Row(
-          //   crossAxisAlignment: CrossAxisAlignment.center,
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     const Text('Don\'t have an account?'),
-          //     TextButton(onPressed: (){
-          //       Navigator.pushNamed(context, RouteNames.registerView);
-          //     }, child: Text('Sign Up',style: TextStyle(color: ColorUtils.baseColor)))
-          //   ],
-          // )
-
-        ],
-      ),
+  Widget _from(){
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children:[
+        Obx((){
+          return KField(
+            hideHeadline: true,
+            hintText: 'Username',
+            controller: loginController.emailController,
+            errorText: loginController.emailError.value,
+            borderColor: ColorUtils.baseColor,
+            onChanged: (_) => loginController.emailError.value = Validators.validateEmail(loginController.emailController.text) ?? '',
+            onTap: null,
+            noPrefix: true,
+            keyboardType: TextInputType.emailAddress,
+          );
+        }),
+        SizedBox(height: ResponsiveScale.of(context).hp(1)),
+        Obx((){
+          return KField(
+            hideHeadline: true,
+            hintText: 'Password',
+            controller: loginController.passwordController,
+            errorText: loginController.passwordError.value,
+            onChanged: (_) => loginController.passwordError.value = Validators.validatePassword(loginController.passwordController.text) ?? '',
+            onTap: null,
+            noPrefix: true,
+            keyboardType: TextInputType.emailAddress,
+            showPassIcon: true,
+          );
+        }),
+        SizedBox(height: ResponsiveScale.of(context).hp(1)),
+        Text('Forget password?',style: TextStyle(
+          fontSize: TextSize.font14(context),
+          decoration: TextDecoration.underline,
+        )),
+      ]
     );
   }
 }
+
