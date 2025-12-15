@@ -3,6 +3,8 @@ import 'package:scube/config/font_constant.dart';
 import 'package:scube/core/const/color_utils.dart';
 import 'package:scube/feature/scm/presentation/widget/bottom_action_card.dart';
 import 'package:scube/feature/scm/presentation/widget/data_item_card.dart';
+import 'package:scube/global/scm_appBar.dart';
+import 'package:scube/route/app_pages.dart';
 
 
 class SCMView extends StatefulWidget {
@@ -105,66 +107,47 @@ class _SCMViewState extends State<SCMView> with SingleTickerProviderStateMixin {
       'title': 'Water Process',
       'icon': 'assets/icons/faucet.png',
     },
+    {
+      'title': 'G. Generator',
+      'icon': 'assets/icons/generator.png',
+    },
+    {
+      'title': 'Plant Summery',
+      'icon': 'assets/icons/charge.png',
+    },
+    {
+      'title': 'Natural Gas',
+      'icon': 'assets/icons/fire.png',
+    },
+    {
+      'title': 'D. Generator',
+      'icon': 'assets/icons/generator.png',
+    },
+    {
+      'title': 'Water Process',
+      'icon': 'assets/icons/faucet.png',
+    },
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0XFFD9E4F1),
-      appBar: _appBar(),
-      body: SafeArea(
-        child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-            child: _body()
-        ),
+      appBar: CustomAppBar(),
+      body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+          child: _body()
       ),
     );
   }
 
-  AppBar _appBar() {
-    return AppBar(
-      title: Text("SCM",
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: TextSize.font18(context),
-            fontWeight: FontWeight.w500,
-          )
-      ),
-      centerTitle: true,
-      actions: [
-        Stack(
 
-          children: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.notifications_none, color: Colors.black54),
-            ),
-
-            // Red dot
-            Positioned(
-              bottom: 25,
-              left:25,
-              child: Container(
-                width: 8,
-                height: 8,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  shape: BoxShape.circle,
-                ),
-              ),
-            ),
-          ],
-        )
-
-      ],
-    );
-  }
 
   Widget _body() {
     return Column(
       children: [
         Expanded(
-          flex: 8,
+          flex: 7,
           child: DefaultTabController(
             length: 3,
             child: Container(
@@ -213,7 +196,7 @@ class _SCMViewState extends State<SCMView> with SingleTickerProviderStateMixin {
         Expanded(
           flex: 2,
           child: GridView.builder(
-            physics: const NeverScrollableScrollPhysics(),
+            physics: const ScrollPhysics(),
             itemCount: bottomActions.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2, // 2 items per row
@@ -226,12 +209,14 @@ class _SCMViewState extends State<SCMView> with SingleTickerProviderStateMixin {
               return BottomActionCard(
                 title: item['title'],
                 imagePath: item['icon'],
+                onTap: (){
+                  Navigator.pushNamed(context, RouteNames.noDataView);
+                },
               );
             },
           ),
         )
         // Bottom Buttons
-
       ],
     );
   }
