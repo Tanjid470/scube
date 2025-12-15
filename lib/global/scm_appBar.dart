@@ -36,8 +36,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
             // Red dot
             Positioned(
-              top: 8,
-              right: 8,
+              bottom: 25,
+              right: 15,
               child: Container(
                 width: 8,
                 height: 8,

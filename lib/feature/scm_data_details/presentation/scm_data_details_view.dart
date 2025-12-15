@@ -508,7 +508,6 @@ class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with TickerProv
                     ),
                   ),
                 ),
-
                 title: Row(
                   children: [
                     Icon(Icons.bar_chart, size: 20),
