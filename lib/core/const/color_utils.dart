@@ -7,6 +7,8 @@ class ColorUtils{
   static Color greyColor =  Colors.grey;
   static Color grey300 = Colors.grey.shade300;
   static Color black =  Colors.black;
+  static Color black54 =  Colors.black54;
+  static Color black87 =  Colors.black87;
   static Color white =  Colors.white;
 
   static Color inputBorderColor = Colors.grey.shade300;
