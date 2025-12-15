@@ -98,29 +98,29 @@ class _KFieldState extends State<KField> {
       style: TextStyle(
         color: widget.textColor ?? Colors.black,
         fontSize: TextSize.font16(context),
-        fontWeight: FontWeight.w300,
+        fontWeight: FontWeight.w400,
       ),
       decoration: InputDecoration(
         isDense: true,
         contentPadding: widget.contentPadding ??
             EdgeInsets.only(
-              right: 10,
-              top: 10,
-              bottom: 10,
+              right: 12,
+              top: 14,
+              bottom: 14,
             ),
-        prefix: widget.noPrefix != null && true ? Container(color: Colors.green, child: const Padding(padding: EdgeInsets.only(left: 15))) : null,
+        prefix: widget.noPrefix != null && true ? Container(color: Colors.green, child: const Padding(padding: EdgeInsets.only(left: 12))) : null,
         prefixIcon: widget.noPrefix != null && true ? null : widget.prefix ?? _prefixIcon(),
-        border: InputBorderStyle.border(widget.maxLine != null ? 60 / widget.maxLine! : 60, borderColor: widget.borderColor),
-        focusedBorder: InputBorderStyle.focusedBorder(widget.maxLine != null ? 60 / widget.maxLine! : 60),
+        border: InputBorderStyle.border(widget.maxLine != null ? 10 / widget.maxLine! : 10, borderColor: widget.borderColor),
+        focusedBorder: InputBorderStyle.focusedBorder(widget.maxLine != null ? 10 / widget.maxLine! : 10),
         enabledBorder: (widget.controller?.text ?? '').isNotEmpty
-            ? InputBorderStyle.validBorder(widget.maxLine != null ? 60 / widget.maxLine! : 60, borderColor: widget.borderColor)
-            : InputBorderStyle.border(widget.maxLine != null ? 60 / widget.maxLine! : 60),
-        focusedErrorBorder: InputBorderStyle.focusedErrorBorder(widget.maxLine != null ? 60 / widget.maxLine! : 60),
-        errorBorder: InputBorderStyle.errorBorder(widget.maxLine != null ? 60 / widget.maxLine! : 60),
+            ? InputBorderStyle.validBorder(widget.maxLine != null ? 10 / widget.maxLine! : 10, borderColor: widget.borderColor)
+            : InputBorderStyle.border(widget.maxLine != null ? 10 / widget.maxLine! : 10),
+        focusedErrorBorder: InputBorderStyle.focusedErrorBorder(widget.maxLine != null ? 10 / widget.maxLine! : 10),
+        errorBorder: InputBorderStyle.errorBorder(widget.maxLine != null ? 10 / widget.maxLine! : 10),
         hintStyle: TextStyle(
-          color: const Color(0xFF818092),
+          color: const Color(0xFF5E5E5E),
           fontSize: TextSize.font16(context),
-          fontWeight: FontWeight.w300,
+          fontWeight: FontWeight.w400,
         ),
         hintText: widget.hintText ?? 'Your Username',
         errorText: widget.errorText == "" ? null : widget.errorText,
