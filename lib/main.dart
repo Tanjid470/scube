@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:scube/feature/home/presentation/home_view.dart';
 import 'package:scube/feature/login/presentation/login_view.dart';
 import 'package:scube/route/app_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';

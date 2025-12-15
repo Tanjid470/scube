@@ -99,7 +99,7 @@ class _LoginViewState extends State<LoginView> {
             _form(),
             SizedBox(height: ResponsiveScale.of(context).hp(2)),
             BaseButton(onClick: (){
-              Navigator.pushNamed(context, RouteNames.homeView);
+              Navigator.pushNamed(context, RouteNames.scmView);
             }, title: 'Login'),
             SizedBox(height: ResponsiveScale.of(context).hp(1)),
             Row(
