@@ -10,7 +10,6 @@ import 'package:scube/route/app_pages.dart';
 import 'package:scube/utils/validators.dart';
 
 
-
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
 
@@ -35,29 +34,29 @@ class _LoginViewState extends State<LoginView> {
             extendBody: true,
             resizeToAvoidBottomInset: false,
             backgroundColor: ColorUtils.baseColor,
-            body: body()
+            body: _body()
         ),
       ],
     );
   }
 
-  Widget body() {
+  Widget _body() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           flex: 6,
-          child: upperBody(),
+          child: _upperBody(),
         ),
         Expanded(
           flex: 8,
-            child: lowerBody()),
-        //tosAndPp(),
+            child: _lowerBody()
+        ),
       ],
     );
   }
 
-  Widget upperBody() {
+  Widget _upperBody() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -75,7 +74,7 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Widget lowerBody() {
+  Widget _lowerBody() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       decoration: BoxDecoration(
@@ -97,7 +96,7 @@ class _LoginViewState extends State<LoginView> {
               fontWeight: FontWeight.w700
               )),
             SizedBox(height: ResponsiveScale.of(context).hp(3)),
-            _from(),
+            _form(),
             SizedBox(height: ResponsiveScale.of(context).hp(2)),
             BaseButton(onClick: (){
               Navigator.pushNamed(context, RouteNames.homeView);
@@ -119,7 +118,7 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Widget _from(){
+  Widget _form(){
     return Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.start,
