@@ -153,6 +153,7 @@ class _LoginViewState extends State<LoginView> {
         SizedBox(height: ResponsiveScale.of(context).hp(1)),
         Text('Forget password?',style: TextStyle(
           fontSize: TextSize.font14(context),
+          color: ColorUtils.black54,
           decoration: TextDecoration.underline,
         )),
       ]
