@@ -141,84 +141,89 @@ class _SCMViewState extends State<SCMView> with SingleTickerProviderStateMixin {
     );
   }
 
-
-
   Widget _body() {
     return Column(
+      spacing: MediaQuery.of(context).size.height * 0.015,
       children: [
-        Expanded(
-          flex: 7,
-          child: DefaultTabController(
-            length: 3,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-                border: Border.all(color: Colors.grey.shade400, width: 1),
-              ),
-              child: Column(
-                children: [
-                  // Top TabBar
-                  TabBar(
-                    controller: _tabController,
-                    labelColor: Colors.white,
-                    unselectedLabelColor: Colors.grey,
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    indicatorPadding: EdgeInsetsGeometry.zero,
-                    indicator: BoxDecoration(
-                      color: ColorUtils.baseColor,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(16),
-                        topRight: Radius.circular(16),
-                      ),
-                    ),
-                    tabs: const [
-                      Tab(text: 'Summary'),
-                      Tab(text: 'SLD'),
-                      Tab(text: 'Data'),
-                    ],
+        _upperTabView(),
+        _lowerSegmentView()
+      ],
+    );
+  }
+
+  Widget _upperTabView(){
+    return Expanded(
+      flex: 7,
+      child: DefaultTabController(
+        length: 3,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(16)),
+            border: Border.all(color: Colors.grey.shade400, width: 1),
+          ),
+          child: Column(
+            children: [
+              // Top TabBar
+              TabBar(
+                controller: _tabController,
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.grey,
+                indicatorSize: TabBarIndicatorSize.tab,
+                indicatorPadding: EdgeInsetsGeometry.zero,
+                indicator: BoxDecoration(
+                  color: ColorUtils.baseColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
                   ),
-                  Expanded(
-                    child: TabBarView(
-                      controller: _tabController,
-                        children: [
-                          _summaryTabView(),
-                          _sldTabView(),
-                          _dataTabView(),
-                        ]
-                    ),
-                  )
+                ),
+                tabs: const [
+                  Tab(text: 'Summary'),
+                  Tab(text: 'SLD'),
+                  Tab(text: 'Data'),
                 ],
               ),
-            ),
+              Expanded(
+                child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      _summaryTabView(),
+                      _sldTabView(),
+                      _dataTabView(),
+                    ]
+                ),
+              )
+            ],
           ),
         ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.015),
-        Expanded(
-          flex: 2,
-          child: GridView.builder(
-            physics: const ScrollPhysics(),
-            itemCount: bottomActions.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, // 2 items per row
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 8,
-              childAspectRatio:4, // adjust for button height
-            ),
-            itemBuilder: (context, index) {
-              final item = bottomActions[index];
-              return BottomActionCard(
-                title: item['title'],
-                imagePath: item['icon'],
-                onTap: (){
-                  Navigator.pushNamed(context, RouteNames.noDataView);
-                },
-              );
+      ),
+    );
+  }
+
+  Widget _lowerSegmentView(){
+    return Expanded(
+      flex: 2,
+      child: GridView.builder(
+        physics: const ScrollPhysics(),
+        itemCount: bottomActions.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, // 2 items per row
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 8,
+          childAspectRatio:4, // adjust for button height
+        ),
+        itemBuilder: (context, index) {
+          final item = bottomActions[index];
+          return BottomActionCard(
+            title: item['title'],
+            imagePath: item['icon'],
+            onTap: (){
+              Navigator.pushNamed(context, RouteNames.noDataView);
             },
-          ),
-        )
-        // Bottom Buttons
-      ],
+          );
+        },
+      ),
     );
   }
 
@@ -364,4 +369,5 @@ class _SCMViewState extends State<SCMView> with SingleTickerProviderStateMixin {
   Widget _dataTabView() {
     return Center(child: Text('Data', style: TextStyle(fontSize: 28)));
   }
+
 }
