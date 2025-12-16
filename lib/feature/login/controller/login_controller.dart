@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 
 class LoginController extends GetxController{
 
-  TextEditingController emailController = TextEditingController();
+  TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  RxString emailError = ''.obs;
+  RxString userNameError = ''.obs;
   RxString passwordError = ''.obs;
 
 }

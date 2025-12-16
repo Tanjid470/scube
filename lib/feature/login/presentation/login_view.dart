@@ -128,10 +128,10 @@ class _LoginViewState extends State<LoginView> {
           return KField(
             hideHeadline: true,
             hintText: 'Username',
-            controller: loginController.emailController,
-            errorText: loginController.emailError.value,
+            controller: loginController.userNameController,
+            errorText: loginController.userNameError.value,
             borderColor: ColorUtils.baseColor,
-            onChanged: (_) => loginController.emailError.value = Validators.validateEmail(loginController.emailController.text) ?? '',
+            onChanged: (_) => loginController.userNameError.value = Validators.validateUsername(loginController.userNameController.text) ?? '',
             onTap: null,
             noPrefix: true,
             keyboardType: TextInputType.emailAddress,
