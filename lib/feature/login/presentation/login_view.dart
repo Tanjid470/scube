@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scube/config/font_constant.dart';
 import 'package:scube/config/responsive_scale.dart';
+import 'package:scube/core/const/app_images.dart';
 import 'package:scube/core/const/color_utils.dart';
 import 'package:scube/feature/login/controller/login_controller.dart';
 import 'package:get/get.dart';
@@ -62,7 +63,7 @@ class _LoginViewState extends State<LoginView> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Image.asset(
-          'assets/images/login_logo.png',
+          AppImages.loginLogo,
           height: MediaQuery.of(context).size.height * 0.1,
           width: MediaQuery.of(context).size.height * 0.2,
           fit: BoxFit.contain,

@@ -41,7 +41,6 @@ class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with TickerProv
     super.dispose();
   }
 
-
   final List<Map<String, dynamic>> dataList = [
     {
       "name": "Data A",
@@ -72,6 +71,7 @@ class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with TickerProv
       "color": Colors.purple,
     },
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -255,7 +255,6 @@ class _ScmDataDetailsViewState extends State<ScmDataDetailsView> with TickerProv
       ),
     );
   }
-
 
   Widget _todayDataTabView() {
     return Padding(

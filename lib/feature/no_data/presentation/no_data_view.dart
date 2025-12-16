@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scube/config/font_constant.dart';
+import 'package:scube/core/const/app_images.dart';
 import 'package:scube/core/const/color_utils.dart';
 import 'package:scube/global/scm_appBar.dart';
 
@@ -39,7 +40,7 @@ class _NoDataViewState extends State<NoDataView>  {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            'assets/images/no_data.png',
+            AppImages.noDataImagePath,
             width: MediaQuery.of(context).size.width * 0.6,
             fit: BoxFit.contain,
           ),
