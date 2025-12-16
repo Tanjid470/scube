@@ -180,6 +180,7 @@ class _SCMViewState extends State<SCMView> with SingleTickerProviderStateMixin {
                   ),
                   Expanded(
                     child: TabBarView(
+                      controller: _tabController,
                         children: [
                           _summaryTabView(),
                           _sldTabView(),
